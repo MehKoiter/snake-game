@@ -11,6 +11,24 @@ window.onload = function() {
     let gameInterval;
     let isGameOver = false;
 
+    // Firebase setup
+    import { initializeApp } from "firebase/app";
+    import { getFirestore, collection, addDoc, orderBy, limit, get } from "firebase/firestore";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyA54CSj0dbE9WhFPeM6myysThhYdibXI2s",
+        authDomain: "snake-leaderboard-ade19.firebaseapp.com",
+        projectId: "snake-leaderboard-ade19",
+        storageBucket: "snake-leaderboard-ade19.firebasestorage.app",
+        messagingSenderId: "142251805467",
+        appId: "1:142251805467:web:c41f9f60c5f34ca347e1be",
+        measurementId: "G-MRCG7JTWLV"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
     document.getElementById('newGameButton').addEventListener('click', startNewGame);
 
     function startNewGame() {
@@ -23,6 +41,7 @@ window.onload = function() {
         if (gameInterval) clearInterval(gameInterval);
         gameInterval = window.setInterval(gameLoop, 150);
 
+        // Disable button after starting game
         document.getElementById('newGameButton').disabled = true;
         document.addEventListener('keydown', e => snake.changeDirection(e));
     }
@@ -116,29 +135,35 @@ window.onload = function() {
     function gameOver() {
         isGameOver = true;
         alert(`Game Over! Your score: ${score}`);
+        
+        // Re-enable the New Game button
         document.getElementById('newGameButton').disabled = false;
-            // Save score to Firestore
-            function saveScore(playerName, score) {
-                db.collection("scores").add({
-                    playerName: playerName,
-                    score: score,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                }).then(() => {
-                    console.log("Score saved successfully!");
-                }).catch((error) => {
-                    console.error("Error saving score: ", error);
-                });
-            }
 
+        // Save score to Firestore
+        saveScore("Player", score);
     }
+
+    // Save score to Firestore
+    function saveScore(playerName, score) {
+        addDoc(collection(db, "scores"), {
+            playerName: playerName,
+            score: score,
+            timestamp: new Date()
+        })
+        .then(() => {
+            console.log("Score saved successfully!");
+        })
+        .catch((error) => {
+            console.error("Error saving score: ", error);
+        });
+    }
+
     // Get leaderboard from Firestore
     function getLeaderboard() {
         const leaderboard = [];
 
-        db.collection("scores")
-        .orderBy("score", "desc")  // Sort by score, descending
-        .limit(10)  // Limit to top 10 scores
-        .get()
+        const q = query(collection(db, "scores"), orderBy("score", "desc"), limit(10));
+        get(q)
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 leaderboard.push(doc.data());
@@ -162,25 +187,6 @@ window.onload = function() {
         });
     }
 
+    // Call getLeaderboard to display leaderboard when the page loads
+    getLeaderboard();
 };
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyA54CSj0dbE9WhFPeM6myysThhYdibXI2s",
-  authDomain: "snake-leaderboard-ade19.firebaseapp.com",
-  projectId: "snake-leaderboard-ade19",
-  storageBucket: "snake-leaderboard-ade19.firebasestorage.app",
-  messagingSenderId: "142251805467",
-  appId: "1:142251805467:web:c41f9f60c5f34ca347e1be",
-  measurementId: "G-MRCG7JTWLV"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
