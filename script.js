@@ -78,6 +78,8 @@ function checkAppleCollision() {
     apple.randomize();
     snake.grow();
     score++;
+    const pointSound = new Audio("point_sound.mp3");
+    pointSound.play();
   }
 }
 
