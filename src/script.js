@@ -197,16 +197,22 @@ function gameOver() {
   backgroundMusic.pause();
   backgroundMusic.currentTime = 0;
   defeatSound.play();
-  alert(`Game Over! Your score: ${score}`);
   document.getElementById("newGameButton").disabled = false;
 
   getLeaderboard()
     .then((leaderboard) => {
       if (leaderboard.length < 5 || score > leaderboard[4].score) {
-        defeatSound.pause();
-        defeatSound.currentTime = 0;
-        victorySound.play();
-        activateScoreSubmissionForm();
+        defeatSound.onended = () => {
+          setTimeout(() => {
+            victorySound.play();
+          }, 200);
+        };
+        defeatSound.onended = () => {
+          setTimeout(() => {
+            victorySound.play();
+            victorySound.onended = activateScoreSubmissionForm;
+          }, 200);
+        };
       } else {
         alert(
           "Your score is not high enough to be submitted to the leaderboard."
@@ -217,6 +223,9 @@ function gameOver() {
 }
 
 function activateScoreSubmissionForm() {
+  alert(
+    `You won! Your score: ${score}. Enter your name to submit your score to the leaderboard.`
+  );
   const form = document.getElementById("scoreSubmission");
   form.style.pointerEvents = "auto";
   form.style.opacity = "1";
