@@ -185,6 +185,8 @@ function gameOver() {
   getLeaderboard()
     .then((leaderboard) => {
       if (leaderboard.length < 5 || score > leaderboard[4].score) {
+        const victorySound = new Audio("victory_sound.mp3");
+        victorySound.play();
         activateScoreSubmissionForm();
       } else {
         alert(
