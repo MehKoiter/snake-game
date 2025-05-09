@@ -34,13 +34,21 @@ const columns = canvas.width / scale;
 
 // Sound
 const backgroundMusic = new Audio("sfx/background_music.mp3");
-backgroundMusic.volume = 0.25;
 const pointSound = new Audio("sfx/point_sound.mp3");
-pointSound.volume = 0.25;
 const victorySound = new Audio("sfx/victory_sound.mp3");
-victorySound.volume = 0.25;
 const defeatSound = new Audio("sfx/defeat_sound.mp3");
+
+// set volume for sounds
+backgroundMusic.volume = 0.25;
+pointSound.volume = 0.25;
+victorySound.volume = 0.25;
 defeatSound.volume = 0.25;
+
+// Modal setup
+const customModal = document.getElementById("customModal");
+const modalMessage = document.getElementById("modalMessage");
+const modalButton = document.getElementById("modalButton");
+const container = document.querySelector(".container");
 
 let snake,
   apple,
@@ -51,6 +59,8 @@ let snake,
 document
   .getElementById("newGameButton")
   .addEventListener("click", startNewGame);
+
+document.getElementById("modalButton").addEventListener("click", closeModal);
 
 function startNewGame() {
   startBackgroundMusic();
@@ -209,7 +219,7 @@ function gameOver() {
           }, 200);
         };
       } else {
-        alert(
+        customAlert(
           "Your score is not high enough to be submitted to the leaderboard."
         );
       }
@@ -218,7 +228,7 @@ function gameOver() {
 }
 
 function activateScoreSubmissionForm() {
-  alert(
+  customAlert(
     `You won! Your score: ${score}. Enter your name to submit your score to the leaderboard.`
   );
   const form = document.getElementById("scoreSubmission");
@@ -243,7 +253,7 @@ function activateScoreSubmissionForm() {
       // Clear the input text after saving the score
       document.getElementById("playerName").value = "";
     } else {
-      alert("Please enter a name!");
+      customAlert("Please enter a name!");
     }
   };
 }
@@ -271,6 +281,18 @@ function displayLeaderboard(leaderboard) {
     entry.textContent = `${playerName}: ${score}`;
     leaderboardElement.appendChild(entry);
   });
+}
+
+function customAlert(message) {
+  modalMessage.textContent = message;
+  customModal.style.display = "block";
+  container.style.filter = "blur(5px)";
+}
+
+function closeModal() {
+  customModal.style.display = "none";
+  modalMessage.textContent = "";
+  container.style.filter = "none";
 }
 
 getLeaderboard().then(displayLeaderboard).catch(console.error);
