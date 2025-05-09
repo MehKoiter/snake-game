@@ -31,9 +31,10 @@ let gameInterval;
 let isGameOver = false;
 
 document.getElementById('newGameButton').addEventListener('click', startNewGame);
+document.addEventListener('keydown', e => snake.changeDirection(e));
 
 function startNewGame() {
-    console.log("New game started"); // Debug statement
+    // console.log("New game started"); Debug statement
     snake = new Snake();
     apple = new Apple();
     score = 0;
@@ -45,7 +46,6 @@ function startNewGame() {
 
     // Disable button after starting game
     document.getElementById('newGameButton').disabled = true;
-    document.addEventListener('keydown', e => snake.changeDirection(e));
 }
 
 function gameLoop() {
@@ -82,6 +82,7 @@ class Snake {
     }
 
     move() {
+        if (isGameOver) return; //prevents processing when game is over
         this.direction = this.inputDirection;
         const head = { ...this.body[0] };
 
@@ -94,7 +95,6 @@ class Snake {
         this.body.pop();
 
         if (this.checkCollision()) gameOver();
-        // Debugging log console.log("Collision detected! Game Over!");
     }
 
     changeDirection(event) {
