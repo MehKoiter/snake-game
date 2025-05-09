@@ -185,7 +185,7 @@ function gameOver() {
   getLeaderboard()
     .then((leaderboard) => {
       if (leaderboard.length < 5 || score > leaderboard[4].score) {
-        showScoreSubmissionForm();
+        activateScoreSubmissionForm();
       } else {
         alert(
           "Your score is not high enough to be submitted to the leaderboard."
@@ -195,15 +195,28 @@ function gameOver() {
     .catch(console.error);
 }
 
-function showScoreSubmissionForm() {
+function activateScoreSubmissionForm() {
   const form = document.getElementById("scoreSubmission");
-  form.style.display = "block";
+  form.style.pointerEvents = "auto";
+  form.style.opacity = "1";
+
+  form.querySelectorAll("input, button").forEach((element) => {
+    element.disabled = false;
+  });
 
   document.getElementById("submitScoreButton").onclick = () => {
     const playerName = document.getElementById("playerName").value;
     if (playerName) {
       saveScore(playerName, score);
-      form.style.display = "none";
+      form.style.pointerEvents = "none";
+      form.style.opacity = "0.5";
+
+      form.querySelectorAll("input, button").forEach((element) => {
+        element.disabled = true;
+      });
+
+      // Clear the input text after saving the score
+      document.getElementById("playerName").value = "";
     } else {
       alert("Please enter a name!");
     }
