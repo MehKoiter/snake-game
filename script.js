@@ -261,3 +261,4 @@ function displayLeaderboard(leaderboard) {
 
 // Call getLeaderboard to display leaderboard when the page loads
 getLeaderboard();
+// this is a test
