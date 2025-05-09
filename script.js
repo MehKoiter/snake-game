@@ -1,13 +1,13 @@
 // Firebase setup
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, orderBy, limit, get, query } from "firebase/firestore";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getFirestore, collection, addDoc, orderBy, limit, getDocs, query } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyA54CSj0dbE9WhFPeM6myysThhYdibXI2s",
     authDomain: "snake-leaderboard-ade19.firebaseapp.com",
     projectId: "snake-leaderboard-ade19",
-    storageBucket: "snake-leaderboard-ade19.firebasestorage.app",
+    storageBucket: "snake-leaderboard-ade19.appspot.com",
     messagingSenderId: "142251805467",
     appId: "1:142251805467:web:c41f9f60c5f34ca347e1be",
     measurementId: "G-MRCG7JTWLV"
@@ -47,7 +47,6 @@ function startNewGame() {
     document.getElementById('newGameButton').disabled = true;
     document.addEventListener('keydown', e => snake.changeDirection(e));
 }
-
 
 function gameLoop() {
     if (isGameOver) return;
@@ -166,7 +165,7 @@ function getLeaderboard() {
     const leaderboard = [];
 
     const q = query(collection(db, "scores"), orderBy("score", "desc"), limit(10));
-    get(q)
+    getDocs(q)
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             leaderboard.push(doc.data());
