@@ -33,13 +33,13 @@ const rows = canvas.height / scale;
 const columns = canvas.width / scale;
 
 // Sound
-const backgroundMusic = new Audio("background_music.mp3");
+const backgroundMusic = new Audio("sfx/background_music.mp3");
 backgroundMusic.volume = 0.25;
-const pointSound = new Audio("point_sound.mp3");
+const pointSound = new Audio("sfx/point_sound.mp3");
 pointSound.volume = 0.25;
-const victorySound = new Audio("victory_sound.mp3");
+const victorySound = new Audio("sfx/victory_sound.mp3");
 victorySound.volume = 0.25;
-const defeatSound = new Audio("defeat_sound.mp3");
+const defeatSound = new Audio("sfx/defeat_sound.mp3");
 defeatSound.volume = 0.25;
 
 let snake,
