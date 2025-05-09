@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap');
 
-
 body {
     background-color: #1a1a1a;
     color: white;
@@ -43,27 +42,67 @@ button {
     margin-top: 20px;
     cursor: pointer;
 }
+
 #scoreSubmission {
+    display: none; /* Start hidden */
+    position: absolute; /* Position it relative to the canvas */
+    top: 50%; /* Center vertically */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center horizontally */
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    z-index: 100; /* Ensure it's on top of everything else */
+}
+
+#scoreSubmission .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#playerName {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    font-size: 16px;
+    width: 80%; /* Adjust width to make the form look cleaner */
+}
+
+#submitScoreButton {
+    padding: 10px 20px;
+    background-color: #00FF00;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 80%;
+}
+
+#submitScoreButton:hover {
+    background-color: #33cc33;
+}
+
+#leaderboard {
     margin-top: 20px;
     text-align: center;
 }
 
-#playerName {
-    padding: 5px;
-    margin-right: 10px;
+.leaderboard-header {
+    font-weight: bold;
+    font-size: 18px;
 }
 
-#submitScoreButton {
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-#leaderboard-container {
-    margin-top: 20px; 
+#leaderboard .leaderboard-entry {
+    font-size: 16px;
+    margin: 5px 0;
 }
 
 h1 {
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 .game-container {
