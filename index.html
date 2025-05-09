@@ -9,7 +9,9 @@
 <body>
     <div class="container">
         <h1>Snake</h1>
-        <p class="score">Score: <span id="score">0</span></p>
+        <div>
+            <p class="score">Score: <span id="score">0</span></p>
+        </div>
         <div class="game-container">
             <canvas id="gameCanvas" width="320" height="320"></canvas>
         </div>
@@ -17,13 +19,6 @@
         <button id="newGameButton">New Game</button>
     </div>
     
-    <div id="leaderboard">
-        <div class="leaderboard-header">
-            <strong>Leaderboard</strong>
-        </div>
-        <!-- Dynamic entries will go below -->
-    </div>
-
     <!-- Score submission form -->
     <div id="scoreSubmission" style="display: none;">
         <div class="form-container">
@@ -31,6 +26,13 @@
             <input type="text" id="playerName" placeholder="Enter your name" />
             <button id="submitScoreButton">Submit Score</button>
         </div>
+    </div>
+
+    <div id="leaderboard">
+        <div class="leaderboard-header">
+            <h2>Leaderboard</h2>
+        </div>
+        <!-- Dynamic entries will go below -->
     </div>
 
     <!-- Firebase SDK -->
