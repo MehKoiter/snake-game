@@ -203,6 +203,8 @@ function gameOver() {
   getLeaderboard()
     .then((leaderboard) => {
       if (leaderboard.length < 5 || score > leaderboard[4].score) {
+        defeatSound.pause();
+        defeatSound.currentTime = 0;
         victorySound.play();
         activateScoreSubmissionForm();
       } else {
