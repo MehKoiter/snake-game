@@ -34,7 +34,6 @@ let isKeydownListenerAdded = false; // Flag to ensure the keydown event listener
 document.getElementById('newGameButton').addEventListener('click', startNewGame);
 
 function startNewGame() {
-    // console.log("New game started"); Debug statement
     snake = new Snake();
     apple = new Apple();
     score = 0;
@@ -49,11 +48,12 @@ function startNewGame() {
 
     // Add keydown event listener if not already added
     if (!isKeydownListenerAdded) {
-        document.addEventListener('keydown', e =>{
-            if (!isGameOver) {
+        document.addEventListener('keydown', e => {
+            if (snake && !isGameOver) { // Ensure snake exists and the game isn't over
                 snake.changeDirection(e);
             }
-        })
+        });
+        isKeydownListenerAdded = true;
     }
 }
 
@@ -91,7 +91,7 @@ class Snake {
     }
 
     move() {
-        if (isGameOver) return; //prevents processing when game is over
+        if (isGameOver) return; // Prevents processing when the game is over
         this.direction = this.inputDirection;
         const head = { ...this.body[0] };
 
@@ -148,18 +148,16 @@ class Apple {
 function gameOver() {
     isGameOver = true;
     alert(`Game Over! Your score: ${score}`);
-    
+
     // Re-enable the New Game button
     document.getElementById('newGameButton').disabled = false;
-    
+
     // Display the score submission input
-    // debugging log console.log('Displaying score submission input');
     document.getElementById('scoreSubmission').style.display = 'block';
 
     // Attach an event listener for submitting the score
     document.getElementById('submitScoreButton').addEventListener('click', () => {
         const playerName = document.getElementById('playerName').value;
-        console.log("Player name: ", playerName); // Debugging log
         if (playerName) {
             saveScore(playerName, score); // Save the score to Firestore
             document.getElementById('scoreSubmission').style.display = "none"; // Hide the form
@@ -167,25 +165,6 @@ function gameOver() {
             alert("Please enter a name!");
         }
     });
-} 
-
-// Submit score function
-function submitScore() {
-    const playerName = document.getElementById('playerName').value;
-
-    if (playerName.trim() === '') {
-        alert('Please enter your name!');
-        return;
-    }
-
-    // Save score to Firestore
-    saveScore(playerName, score);
-
-    // Hide the score submission elements
-    document.getElementById('scoreSubmission').style.display = 'none';
-
-    // Clear the input field
-    document.getElementById('playerName').value = '';
 }
 
 // Save score to Firestore
