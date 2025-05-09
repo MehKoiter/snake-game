@@ -205,11 +205,6 @@ function gameOver() {
         defeatSound.onended = () => {
           setTimeout(() => {
             victorySound.play();
-          }, 200);
-        };
-        defeatSound.onended = () => {
-          setTimeout(() => {
-            victorySound.play();
             victorySound.onended = activateScoreSubmissionForm;
           }, 200);
         };
