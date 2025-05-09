@@ -105,6 +105,10 @@ h1 {
     margin-bottom: 20px;
 }
 
+h2 {
+    display: flex;
+}
+
 .game-container {
     flex-grow: 1;
     display: flex;
