@@ -53,3 +53,11 @@ button {
     padding: 5px 10px;
     cursor: pointer;
 }
+
+#leaderboard-container {
+    margin-top: 20px; 
+}
+
+h1 {
+    margin-bottom: 20px; 
+}
