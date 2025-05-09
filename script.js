@@ -33,6 +33,7 @@ let isGameOver = false;
 document.getElementById('newGameButton').addEventListener('click', startNewGame);
 
 function startNewGame() {
+    console.log("New game started"); // Debug statement
     snake = new Snake();
     apple = new Apple();
     score = 0;
@@ -46,6 +47,7 @@ function startNewGame() {
     document.getElementById('newGameButton').disabled = true;
     document.addEventListener('keydown', e => snake.changeDirection(e));
 }
+
 
 function gameLoop() {
     if (isGameOver) return;
