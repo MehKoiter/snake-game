@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "firebase": "^11.7.1"
+    "firebase": "^11.7.1",
+    "tailwind": "^4.0.0"
   }
 }
