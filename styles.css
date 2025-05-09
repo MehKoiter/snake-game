@@ -39,6 +39,7 @@ button {
     margin-top: 20px;
     cursor: pointer;
 }
+
 #scoreSubmission {
     margin-top: 20px;
     text-align: center;
@@ -54,12 +55,32 @@ button {
     cursor: pointer;
 }
 
+/* Leaderboard Container Styling */
 #leaderboard-container {
     position: relative;
     z-index: 10;
+    margin-top: 30px; /* Added margin-top to ensure space between game and leaderboard */
 }
 
+/* Ensure the game canvas doesn't cover the leaderboard */
 #gameCanvas {
     position: absolute;
+    top: 0;
+    left: 0;
     z-index: 1;
+    width: 100%;
+    height: 400px; /* Adjust the height as necessary */
+}
+
+/* Add space between the leaderboard and the game area */
+#leaderboard {
+    padding-top: 50px; /* Ensure there's enough space between the game and leaderboard */
+}
+
+/* Styling for header (Leaderboard title) */
+#leaderboard-container h1 {
+    margin-top: 20px; /* Adjust margin-top to add space between the title and the leaderboard */
+    font-size: 36px;
+    color: #00FF00; /* Make the header green to match the game theme */
+    text-shadow: 2px 2px 5px rgba(0, 255, 0, 0.6); /* Optional: adds a subtle glow to the text */
 }
