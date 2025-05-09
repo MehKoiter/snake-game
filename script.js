@@ -152,20 +152,34 @@ function gameOver() {
     // Re-enable the New Game button
     document.getElementById('newGameButton').disabled = false;
 
-    // Display the score submission input
-    document.getElementById('scoreSubmission').style.display = 'block';
+    // Fetch the leaderboard and check if the score is high enough to submit
+    getLeaderboard()
+        .then((leaderboard) => {
+            // If there are less than 5 entries, allow the score to be submitted
+            if (leaderboard.length < 5 || score > leaderboard[4].score) {
+                // Show the score submission form and make sure it's centered
+                document.getElementById('scoreSubmission').style.display = 'block';
 
-    // Attach an event listener for submitting the score
-    document.getElementById('submitScoreButton').addEventListener('click', () => {
-        const playerName = document.getElementById('playerName').value;
-        if (playerName) {
-            saveScore(playerName, score); // Save the score to Firestore
-            document.getElementById('scoreSubmission').style.display = "none"; // Hide the form
-        } else {
-            alert("Please enter a name!");
-        }
-    });
+                // Attach an event listener for submitting the score
+                document.getElementById('submitScoreButton').addEventListener('click', () => {
+                    const playerName = document.getElementById('playerName').value;
+                    if (playerName) {
+                        saveScore(playerName, score); // Save the score to Firestore
+                        document.getElementById('scoreSubmission').style.display = "none"; // Hide the form
+                    } else {
+                        alert("Please enter a name!");
+                    }
+                });
+            } else {
+                // If the score is not high enough, inform the player
+                alert("Your score is not high enough to be submitted to the leaderboard.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error checking leaderboard: ", error);
+        });
 }
+
 
 // Save score to Firestore
 function saveScore(playerName, score) {
@@ -184,18 +198,20 @@ function saveScore(playerName, score) {
 
 // Get leaderboard from Firestore
 function getLeaderboard() {
-    const leaderboard = [];
-
-    const q = query(collection(db, "scores"), orderBy("score", "desc"), limit(5));
-    getDocs(q)
-    .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            leaderboard.push(doc.data());
+    return new Promise((resolve, reject) => {
+        const leaderboard = [];
+        const q = query(collection(db, "scores"), orderBy("score", "desc"), limit(5));
+        getDocs(q)
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                leaderboard.push(doc.data());
+            });
+            resolve(leaderboard);  // Resolve the leaderboard data
+        })
+        .catch((error) => {
+            console.error("Error getting leaderboard: ", error);
+            reject(error);  // Reject in case of an error
         });
-        displayLeaderboard(leaderboard);
-    })
-    .catch((error) => {
-        console.error("Error getting leaderboard: ", error);
     });
 }
 
