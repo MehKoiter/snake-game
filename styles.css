@@ -28,7 +28,7 @@ body {
 
 .header h1 {
   font-size: 2.5rem;
-  color: #0078d7; /* Blue accent for headers */
+  color: #226e93; /* Updated blue accent for headers */
 }
 
 .header p {
@@ -57,7 +57,7 @@ body {
 #newGameButton {
   padding: 10px 20px;
   font-size: 1rem;
-  background-color: #0078d7; /* Blue button */
+  background-color: #226e93; /* Updated blue button */
   color: white;
   border: none;
   border-radius: 5px;
@@ -65,7 +65,7 @@ body {
 }
 
 #newGameButton:hover {
-  background-color: #005a9e; /* Darker blue on hover */
+  background-color: #1a536f; /* Darker blue on hover */
 }
 
 .form-container {
@@ -86,7 +86,7 @@ body {
 #submitScoreButton {
   padding: 8px 15px;
   font-size: 1rem;
-  background-color: #0078d7; /* Blue button */
+  background-color: #226e93; /* Updated blue button */
   color: white;
   border: none;
   border-radius: 5px;
@@ -94,7 +94,7 @@ body {
 }
 
 #submitScoreButton:hover {
-  background-color: #005a9e; /* Darker blue on hover */
+  background-color: #1a536f; /* Darker blue on hover */
 }
 
 /* Game Area */
@@ -105,7 +105,7 @@ body {
 }
 
 #gameCanvas {
-  border: 2px solid #0078d7; /* Blue border matching the theme */
+  border: 2px solid #226e93; /* Updated blue border matching the theme */
   border-radius: 6px;
   background-color: #969696; /* Darker canvas background */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
@@ -116,7 +116,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid #0078d7; /* Blue border matching the theme */
+  border: 2px solid #226e93; /* Updated blue border matching the theme */
   border-radius: 8px; /* Rounded corners */
   padding: 15px; /* Add some spacing inside */
   background-color: #f9f9f9; /* Light background for contrast */
@@ -126,6 +126,6 @@ body {
 
 .leaderboard-header {
   font-size: 1.5rem;
-  color: #0078d7; /* Blue accent for headers */
+  color: #226e93; /* Updated blue accent for headers */
   margin-bottom: 10px;
 }
