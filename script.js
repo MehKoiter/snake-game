@@ -143,6 +143,7 @@ function gameOver() {
     document.getElementById('newGameButton').disabled = false;
     
     // Display the score submission input
+        console.log('Displaying score submission input');
     document.getElementById('scoreSubmission').style.display = 'block';
 
     // Attach an event listener for submitting the score
