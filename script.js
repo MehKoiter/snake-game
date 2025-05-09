@@ -29,9 +29,9 @@ let apple;
 let score;
 let gameInterval;
 let isGameOver = false;
+let isKeydownListenerAdded = false; // Flag to ensure the keydown event listener is added only once
 
 document.getElementById('newGameButton').addEventListener('click', startNewGame);
-document.addEventListener('keydown', e => snake.changeDirection(e));
 
 function startNewGame() {
     // console.log("New game started"); Debug statement
@@ -46,6 +46,15 @@ function startNewGame() {
 
     // Disable button after starting game
     document.getElementById('newGameButton').disabled = true;
+
+    // Add keydown event listener if not already added
+    if (!isKeydownListenerAdded) {
+        document.addEventListener('keydown', e =>{
+            if (!isGameOver) {
+                snake.changeDirection(e);
+            }
+        })
+    }
 }
 
 function gameLoop() {
