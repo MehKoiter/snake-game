@@ -55,9 +55,11 @@ button {
 }
 
 #leaderboard-container {
-    margin-top: 20px; 
+    position: relative;
+    z-index: 10;
 }
 
-h1 {
-    margin-bottom: 20px; 
+#gameCanvas {
+    position: absolute;
+    z-index: 1;
 }
