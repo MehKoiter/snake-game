@@ -144,12 +144,21 @@ function gameOver() {
     document.getElementById('newGameButton').disabled = false;
     
     // Display the score submission input
-        console.log('Displaying score submission input');
+    // debugging log console.log('Displaying score submission input');
     document.getElementById('scoreSubmission').style.display = 'block';
 
     // Attach an event listener for submitting the score
-    document.getElementById('submitScoreButton').addEventListener('click', submitScore);
-}
+    document.getElementById('submitScoreButton').addEventListener('click', () => {
+        const playerName = document.getElementById('playerName').value;
+        console.log("Player name: ", playerName); // Debugging log
+        if (playerName) {
+            saveScore(playerName, score); // Save the score to Firestore
+            document.getElementById('scoreSubmission').style.display = "none"; // Hide the form
+        } else {
+            alert("Please enter a name!");
+        }
+    });
+} 
 
 // Submit score function
 function submitScore() {
