@@ -8,38 +8,39 @@
   </head>
   <body>
     <div class="container">
-      <div class="header">
+      <!-- Header Section -->
+      <header class="header">
         <h1>Snake</h1>
         <p>Score: <span id="score">0</span></p>
-      </div>
+      </header>
 
-      <div class="game-container">
-        <!-- Score submission form -->
-        <div class="left-panel">
+      <!-- Main Content Section -->
+      <main class="main-content">
+        <!-- Left Panel -->
+        <section class="left-panel">
           <button id="newGameButton">New Game</button>
-          <div id="scoreSubmission" style="display: none">
-            <div class="form-container">
-              <h2>Submit Your Score</h2>
-              <input
-                type="text"
-                id="playerName"
-                placeholder="Enter your name" />
-              <button id="submitScoreButton">Submit Score</button>
-            </div>
+          <div
+            id="scoreSubmission"
+            class="form-container"
+            style="display: none">
+            <h2>Submit Your Score</h2>
+            <input type="text" id="playerName" placeholder="Enter your name" />
+            <button id="submitScoreButton">Submit Score</button>
           </div>
-        </div>
-        <canvas id="gameCanvas" width="320" height="320"></canvas>
-        <div class="right-panel">
-          <div id="leaderboard">
-            <div class="leaderboard-header">
-              <h2>Leaderboard</h2>
-            </div>
-          </div>
-          <!-- Dynamic entries will go below -->
-        </div>
-      </div>
+        </section>
+
+        <!-- Game Canvas -->
+        <section class="game-area">
+          <canvas id="gameCanvas" width="320" height="320"></canvas>
+        </section>
+
+        <!-- Right Panel -->
+        <section class="right-panel">
+          <h2 class="leaderboard-header">Leaderboard</h2>
+          <div id="leaderboard"></div>
+        </section>
+      </main>
     </div>
-    <!-- Firebase SDK -->
     <script type="module" src="script.js"></script>
   </body>
 </html>
