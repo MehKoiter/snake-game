@@ -94,7 +94,7 @@ class Snake {
         this.body.pop();
 
         if (this.checkCollision()) gameOver();
-        console.log("Collision detected! Game Over!");
+        // Debugging log console.log("Collision detected! Game Over!");
     }
 
     changeDirection(event) {
