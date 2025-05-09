@@ -7,8 +7,8 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #121212;
-  color: #e0e0e0;
+  background-color: #ffffff; /* Light background */
+  color: #333333; /* Dark text */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,18 +28,20 @@ body {
 
 .header h1 {
   font-size: 2.5rem;
-  color: #ffffff;
+  color: #0078d7; /* Blue accent for headers */
 }
 
 .header p {
   font-size: 1.2rem;
-  color: #b0b0b0;
+  color: #666666; /* Subtle gray for secondary text */
 }
 
 /* Main Content Section */
 .main-content {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 20px;
 }
 
@@ -54,7 +56,7 @@ body {
 #newGameButton {
   padding: 10px 20px;
   font-size: 1rem;
-  background-color: #4caf50;
+  background-color: #0078d7; /* Blue button */
   color: white;
   border: none;
   border-radius: 5px;
@@ -62,7 +64,7 @@ body {
 }
 
 #newGameButton:hover {
-  background-color: #45a049;
+  background-color: #005a9e; /* Darker blue on hover */
 }
 
 .form-container {
@@ -74,16 +76,16 @@ body {
 #playerName {
   padding: 8px;
   font-size: 1rem;
-  border: 1px solid #444;
+  border: 1px solid #cccccc; /* Light gray border */
   border-radius: 5px;
-  background-color: #1e1e1e;
-  color: #e0e0e0;
+  background-color: #f9f9f9; /* Light input background */
+  color: #333333; /* Dark text */
 }
 
 #submitScoreButton {
   padding: 8px 15px;
   font-size: 1rem;
-  background-color: #2196f3;
+  background-color: #0078d7; /* Blue button */
   color: white;
   border: none;
   border-radius: 5px;
@@ -91,7 +93,7 @@ body {
 }
 
 #submitScoreButton:hover {
-  background-color: #1e88e5;
+  background-color: #005a9e; /* Darker blue on hover */
 }
 
 /* Game Area */
@@ -99,12 +101,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 0;
 }
 
 #gameCanvas {
-  border: 2px solid #444;
-  background-color: #1e1e1e;
+  border: 2px solid #0078d7; /* Blue border matching the theme */
+  border-radius: 6px;
+  background-color: #969696; /* Darker canvas background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 /* Right Panel */
@@ -112,11 +115,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0;
+  border: 2px solid #0078d7; /* Blue border matching the theme */
+  border-radius: 8px; /* Rounded corners */
+  padding: 15px; /* Add some spacing inside */
+  background-color: #f9f9f9; /* Light background for contrast */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%; /* Ensure it scales */
+  max-width: 328px; /* Match the canvas width */
 }
 
 .leaderboard-header {
   font-size: 1.5rem;
-  color: #ffffff;
+  color: #0078d7; /* Blue accent for headers */
   margin-bottom: 10px;
 }

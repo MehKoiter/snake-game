@@ -87,7 +87,7 @@ function updateScore() {
 
 class Snake {
   constructor() {
-    this.body = [{ x: 10, y: 10 }];
+    this.body = [{ x: 0, y: Math.floor(rows / 2) }]; // Start at the far left, middle row
     this.direction = "RIGHT";
     this.inputDirection = "RIGHT";
   }
