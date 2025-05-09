@@ -203,13 +203,19 @@ function getLeaderboard() {
 function displayLeaderboard(leaderboard) {
     const leaderboardElement = document.getElementById("leaderboard");
 
-    leaderboardElement.innerHTML = ""; // Clear current leaderboard
+    // Clear only the dynamic score entries, not the header
+    const existingScores = leaderboardElement.querySelectorAll(".leaderboard-entry");
+    existingScores.forEach(entry => entry.remove());
+
+    // Add new scores below the header
     leaderboard.forEach((entry) => {
         const scoreElement = document.createElement("div");
+        scoreElement.className = "leaderboard-entry";
         scoreElement.textContent = `${entry.playerName}: ${entry.score}`;
         leaderboardElement.appendChild(scoreElement);
     });
 }
+
 
 // Call getLeaderboard to display leaderboard when the page loads
 getLeaderboard();
