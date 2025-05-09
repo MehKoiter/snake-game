@@ -186,7 +186,7 @@ function saveScore(playerName, score) {
 function getLeaderboard() {
     const leaderboard = [];
 
-    const q = query(collection(db, "scores"), orderBy("score", "desc"), limit(10));
+    const q = query(collection(db, "scores"), orderBy("score", "desc"), limit(5));
     getDocs(q)
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
