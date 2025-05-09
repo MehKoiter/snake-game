@@ -117,5 +117,70 @@ window.onload = function() {
         isGameOver = true;
         alert(`Game Over! Your score: ${score}`);
         document.getElementById('newGameButton').disabled = false;
+            // Save score to Firestore
+            function saveScore(playerName, score) {
+                db.collection("scores").add({
+                    playerName: playerName,
+                    score: score,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(() => {
+                    console.log("Score saved successfully!");
+                }).catch((error) => {
+                    console.error("Error saving score: ", error);
+                });
+            }
+
     }
+    // Get leaderboard from Firestore
+    function getLeaderboard() {
+        const leaderboard = [];
+
+        db.collection("scores")
+        .orderBy("score", "desc")  // Sort by score, descending
+        .limit(10)  // Limit to top 10 scores
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                leaderboard.push(doc.data());
+            });
+            displayLeaderboard(leaderboard);
+        })
+        .catch((error) => {
+            console.error("Error getting leaderboard: ", error);
+        });
+    }
+
+    // Display leaderboard
+    function displayLeaderboard(leaderboard) {
+        const leaderboardElement = document.getElementById("leaderboard");
+
+        leaderboardElement.innerHTML = ""; // Clear current leaderboard
+        leaderboard.forEach((entry) => {
+            const scoreElement = document.createElement("div");
+            scoreElement.textContent = `${entry.playerName}: ${entry.score}`;
+            leaderboardElement.appendChild(scoreElement);
+        });
+    }
+
 };
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyA54CSj0dbE9WhFPeM6myysThhYdibXI2s",
+  authDomain: "snake-leaderboard-ade19.firebaseapp.com",
+  projectId: "snake-leaderboard-ade19",
+  storageBucket: "snake-leaderboard-ade19.firebasestorage.app",
+  messagingSenderId: "142251805467",
+  appId: "1:142251805467:web:c41f9f60c5f34ca347e1be",
+  measurementId: "G-MRCG7JTWLV"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
