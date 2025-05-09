@@ -39,3 +39,17 @@ button {
     margin-top: 20px;
     cursor: pointer;
 }
+#scoreSubmission {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#playerName {
+    padding: 5px;
+    margin-right: 10px;
+}
+
+#submitScoreButton {
+    padding: 5px 10px;
+    cursor: pointer;
+}

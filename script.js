@@ -134,15 +134,38 @@ class Apple {
     }
 }
 
+// Game Over function
 function gameOver() {
     isGameOver = true;
     alert(`Game Over! Your score: ${score}`);
     
     // Re-enable the New Game button
     document.getElementById('newGameButton').disabled = false;
+    
+    // Display the score submission input
+    document.getElementById('scoreSubmission').style.display = 'block';
+
+    // Attach an event listener for submitting the score
+    document.getElementById('submitScoreButton').addEventListener('click', submitScore);
+}
+
+// Submit score function
+function submitScore() {
+    const playerName = document.getElementById('playerName').value;
+
+    if (playerName.trim() === '') {
+        alert('Please enter your name!');
+        return;
+    }
 
     // Save score to Firestore
-    saveScore("Player", score);
+    saveScore(playerName, score);
+
+    // Hide the score submission elements
+    document.getElementById('scoreSubmission').style.display = 'none';
+
+    // Clear the input field
+    document.getElementById('playerName').value = '';
 }
 
 // Save score to Firestore
