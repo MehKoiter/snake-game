@@ -32,6 +32,16 @@ const scale = 20;
 const rows = canvas.height / scale;
 const columns = canvas.width / scale;
 
+// Sound
+const backgroundMusic = new Audio("background_music.mp3");
+backgroundMusic.volume = 0.25;
+const pointSound = new Audio("point_sound.mp3");
+pointSound.volume = 0.25;
+const victorySound = new Audio("victory_sound.mp3");
+victorySound.volume = 0.25;
+const defeatSound = new Audio("defeat_sound.mp3");
+defeatSound.volume = 0.25;
+
 let snake,
   apple,
   score,
@@ -43,18 +53,23 @@ document
   .addEventListener("click", startNewGame);
 
 function startNewGame() {
+  startBackgroundMusic();
   snake = new Snake();
   apple = new Apple();
   score = 0;
   isGameOver = false;
   updateScore();
-
   clearInterval(gameInterval);
   gameInterval = setInterval(gameLoop, 150);
-
   document.getElementById("newGameButton").disabled = true;
-
   document.addEventListener("keydown", handleKeydown, { once: true });
+}
+
+function startBackgroundMusic() {
+  backgroundMusic.loop = true;
+  if (backgroundMusic.paused) {
+    backgroundMusic.play().catch(console.error);
+  }
 }
 
 function handleKeydown(e) {
@@ -64,7 +79,6 @@ function handleKeydown(e) {
 
 function gameLoop() {
   if (isGameOver) return;
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   snake.move();
   snake.draw();
@@ -78,7 +92,6 @@ function checkAppleCollision() {
     apple.randomize();
     snake.grow();
     score++;
-    const pointSound = new Audio("point_sound.mp3");
     pointSound.play();
   }
 }
@@ -181,13 +194,15 @@ class Apple {
 
 function gameOver() {
   isGameOver = true;
+  backgroundMusic.pause();
+  backgroundMusic.currentTime = 0;
+  defeatSound.play();
   alert(`Game Over! Your score: ${score}`);
   document.getElementById("newGameButton").disabled = false;
 
   getLeaderboard()
     .then((leaderboard) => {
       if (leaderboard.length < 5 || score > leaderboard[4].score) {
-        const victorySound = new Audio("victory_sound.mp3");
         victorySound.play();
         activateScoreSubmissionForm();
       } else {
