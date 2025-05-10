@@ -41,12 +41,18 @@
         <!-- Game Canvas -->
         <section class="game-area">
           <canvas id="gameCanvas" width="320" height="320"></canvas>
+          <div class="controls">
+            <button id="upButton" class="control-button">↑</button>
+            <button id="leftButton" class="control-button">←</button>
+            <button id="downButton" class="control-button">↓</button>
+            <button id="rightButton" class="control-button">→</button>
+          </div>
           <div id="snakeSelection" class="snake-selection">
             <button id="snakeSelectionToggle" class="snake-selection-toggle">
               Select Snake
             </button>
             <p class="selected-snake">
-              <span class="selected-snake" id="selectedSnake">Coral</span>
+              <span class="selected-snake" id="selectedSnake">Default</span>
             </p>
           </div>
         </section>

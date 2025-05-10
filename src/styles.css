@@ -108,6 +108,40 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+@media (min-width: 769px) {
+  .controls {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 324px;
+  }
+}
+
+.control-button {
+  width: 60px;
+  height: 60px;
+  font-size: 1.5rem;
+  background-color: #226e93;
+  color: white;
+  border: none;
+  border-radius: 10%;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-button:hover {
+  background-color: #1a536f;
+}
+
 .snake-selection {
   display: flex;
   justify-content: space-between;

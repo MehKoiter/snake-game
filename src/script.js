@@ -50,6 +50,7 @@ const modalMessage = document.getElementById("modalMessage");
 const container = document.querySelector(".container");
 
 const snakeSkins = [
+  "Default",
   "Coral",
   "Rattle",
   "Milk",
@@ -74,6 +75,18 @@ document.getElementById("modalButton").addEventListener("click", closeModal);
 document
   .getElementById("snakeSelectionToggle")
   .addEventListener("click", toggleSnakeSelection);
+document.getElementById("upButton").addEventListener("click", () => {
+  handleKeydown({ key: "w" });
+});
+document.getElementById("leftButton").addEventListener("click", () => {
+  handleKeydown({ key: "a" });
+});
+document.getElementById("downButton").addEventListener("click", () => {
+  handleKeydown({ key: "s" });
+});
+document.getElementById("rightButton").addEventListener("click", () => {
+  handleKeydown({ key: "d" });
+});
 
 function toggleSnakeSelection() {
   // span text
