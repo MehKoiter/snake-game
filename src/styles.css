@@ -117,29 +117,39 @@ body {
 @media (max-width: 768px) {
   .controls {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
     gap: 10px;
-    width: 324px;
+    width: 200px;
+  }
+
+  .upperButtons,
+  .lowerButtons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
   }
 }
 
 .control-button {
-  width: 60px;
-  height: 60px;
-  font-size: 1.5rem;
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
   background-color: #226e93;
   color: white;
   border: none;
-  border-radius: 10%;
+  border-radius: 5px;
   cursor: pointer;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.control-button:hover {
+.control-button:active {
   background-color: #1a536f;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .snake-selection {
