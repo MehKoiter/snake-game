@@ -41,6 +41,24 @@ const defeatSound = new Audio("sfx/defeat_sound.mp3");
 // set volume for sounds
 backgroundMusic.volume = 0.25;
 pointSound.volume = 0.25;
+
+// Adjust playback rate of background music based on snake length
+function adjustBackgroundMusicTempo() {
+  if (snake) {
+    const baseTempo = 1; // Normal speed
+    const tempoIncrease = 0.01; // Increase per snake segment
+    backgroundMusic.playbackRate =
+      baseTempo + snake.body.length * tempoIncrease;
+  }
+}
+
+// Call adjustBackgroundMusicTempo in game loop to update tempo dynamically
+setInterval(() => {
+  if (!isGameOver) {
+    adjustBackgroundMusicTempo();
+  }
+}, 1000); // Adjust tempo every second
+
 victorySound.volume = 0.25;
 defeatSound.volume = 0.25;
 
@@ -199,7 +217,6 @@ class Snake {
       },
     };
 
-    console.log(selectedSnakeSkin);
     const getColor =
       snakeSkinsMap[selectedSnakeSkin] || snakeSkinsMap["Default"];
 
