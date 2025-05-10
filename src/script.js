@@ -47,8 +47,18 @@ defeatSound.volume = 0.25;
 // Modal setup
 const customModal = document.getElementById("customModal");
 const modalMessage = document.getElementById("modalMessage");
-const modalButton = document.getElementById("modalButton");
 const container = document.querySelector(".container");
+
+const snakeSkins = [
+  "Coral",
+  "Rattle",
+  "Milk",
+  "Eyelash Viper",
+  "Boomslang",
+  "Blue Racer",
+];
+let snakeSkinsIndex = 0;
+let selectedSnakeSkin = snakeSkins[snakeSkinsIndex]; // Default to the first skin
 
 let snake,
   apple,
@@ -56,11 +66,23 @@ let snake,
   gameInterval,
   isGameOver = false;
 
+// Add on click events
 document
   .getElementById("newGameButton")
   .addEventListener("click", startNewGame);
-
 document.getElementById("modalButton").addEventListener("click", closeModal);
+document
+  .getElementById("snakeSelectionToggle")
+  .addEventListener("click", toggleSnakeSelection);
+
+function toggleSnakeSelection() {
+  // span text
+  const snakeSelection = document.getElementById("selectedSnake");
+  console.log(snakeSelection);
+  snakeSkinsIndex = (snakeSkinsIndex + 1) % snakeSkins.length;
+  snakeSelection.textContent = `${snakeSkins[snakeSkinsIndex]}`;
+  selectedSnakeSkin = snakeSkins[snakeSkinsIndex];
+}
 
 function startNewGame() {
   startBackgroundMusic();
@@ -116,10 +138,60 @@ class Snake {
     this.direction = "RIGHT";
     this.inputDirection = "RIGHT";
   }
-
   draw() {
-    ctx.fillStyle = "green";
-    this.body.forEach(({ x, y }) => {
+    const snakeSkinsMap = {
+      Coral: (index) => {
+        if (index === 0) return "black"; // Black for the head
+        const colors = ["black", "yellow", "black", "yellow", "red", "yellow"];
+        return colors[(index - 1) % colors.length]; // Cycle through Coral pattern
+      },
+      Rattle: (index) => {
+        if (index === 0) return "#D2B48C"; // Light brown for the head
+        const bodyColor = "#A0522D"; // Medium brown for the body
+        const rattleColors = ["#F5DEB3", "#8B4513"]; // Alternating light tan and SaddleBrown for the rattle
+        const rattleStartIndex =
+          this.body.length - (1 + Math.floor(this.body.length / 5));
+
+        if (index >= rattleStartIndex) {
+          return rattleColors[(index - rattleStartIndex) % rattleColors.length];
+        }
+
+        return bodyColor; // Medium brown for the rest of the body
+      },
+      Milk: (index) => {
+        if (index === 0) return "white"; // White for the head
+        const milkColors = ["white", "black"];
+        return milkColors[index % milkColors.length]; // Alternating white and black
+      },
+      "Eyelash Viper": (index) => {
+        if (index === 0) return "#ff0000"; // red head
+        const colors = ["#4caf50", "#8bc34a", "#cddc39"];
+        return colors[(index - 1) % colors.length];
+      },
+      Boomslang: (index) => {
+        if (index === 0) return "#00fff7"; // Bright cyan head
+        const colors = ["#ff00ff", "#00ff00", "#00fff7"];
+        return colors[(index - 1) % colors.length];
+      },
+      "Blue Racer": (index) => {
+        if (index === 0) return "#aee3f9"; // Light blue for head
+        const colors = ["#e0f7fa", "#b2ebf2", "#80deea", "#4dd0e1"];
+        return colors[(index - 1) % colors.length];
+      },
+      Default: (index) => {
+        if (index === 0) return "hsl(120, 100%, 30%)"; // Dark green for the head
+        const cycle = Math.floor((index - 1) / 5) % 3; // Cycle through 3 iterations
+        const shade = 50 + cycle * 20; // Increase lightness more noticeably for each cycle
+        return `hsl(120, 100%, ${Math.min(shade, 90)}%)`; // Shades of green for the body
+      },
+    };
+
+    console.log(selectedSnakeSkin);
+    const getColor =
+      snakeSkinsMap[selectedSnakeSkin] || snakeSkinsMap["Default"];
+
+    this.body.forEach(({ x, y }, index) => {
+      ctx.fillStyle = getColor(index);
       ctx.fillRect(x * scale, y * scale, scale, scale);
     });
   }
