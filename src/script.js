@@ -343,6 +343,14 @@ function activateScoreSubmissionForm() {
 
   document.getElementById("submitScoreButton").onclick = () => {
     const playerName = document.getElementById("playerName").value;
+    const maxScore = rows * columns; // Maximum possible score based on the gameboard
+
+    // Check if the score exceeds the maximum allowed
+    if (score > maxScore) {
+      customAlert(`Invalid score! The maximum possible score is ${maxScore}.`);
+      return;
+    }
+
     if (playerName) {
       saveScore(playerName, score);
       form.style.pointerEvents = "none";
